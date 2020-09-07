@@ -2,9 +2,12 @@ package com.alaili.springbootlearnstuff.controller;
 
 import com.alaili.springbootlearnstuff.Vo.FilePropVo;
 import com.alaili.springbootlearnstuff.utils.FileDownloadUtils;
+import com.alaili.springbootlearnstuff.utils.FilePathConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +23,10 @@ import java.util.List;
  */
 @RestController
 public class DownloadFileController {
+
+    @Autowired
+    FilePathConfig filePathConfig;
+
     /***
      * @Description 浏览器下载单个文件
      * @Details
@@ -44,17 +51,18 @@ public class DownloadFileController {
      */
     @GetMapping("/downloadZipFile")
     public void downloadZipFile(HttpServletResponse response) {
+        String baseDir = System.getProperty("user.dir") +File.separator+ "tmp";
         List<FilePropVo> filePropVoList = new ArrayList<>();
         for (int i = 1; i < 4; i++) {
             FilePropVo vo = new FilePropVo();
-            vo.setFilePath("D:/testLand/filedownload/sourcePath/下载文件"+i+".docx");
-            vo.setFileName("下载文件"+i+".docx");
+            vo.setFilePath(baseDir + filePathConfig.getSourcePath() + "下载文件" + i + ".md");
+            vo.setFileName("下载文件"+i+".md");
             filePropVoList.add(vo);
         }
-        String zipFileTmpPath = FileDownloadUtils.downloadZipFiles(response, filePropVoList);
+        String zipFileTmpPath = FileDownloadUtils.downloadZipFiles(response, filePropVoList, baseDir + filePathConfig.getDestinationPath());
 
         File file = new File(zipFileTmpPath);
-        file.deleteOnExit();
+        file.delete();
     }
 
 }

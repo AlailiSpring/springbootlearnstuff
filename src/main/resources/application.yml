@@ -1,0 +1,5 @@
+
+# 下载文件路径配置
+ downloadfilepath:
+     sourcePath: /sourcePath/
+     destinationPath: /destPath/

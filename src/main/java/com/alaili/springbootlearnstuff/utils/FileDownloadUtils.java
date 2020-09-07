@@ -67,10 +67,10 @@ public class FileDownloadUtils {
      * @param filePropVoList
      * @return {}
      */
-    public static String downloadZipFiles(HttpServletResponse response, List<FilePropVo> filePropVoList) {
+    public static String downloadZipFiles(HttpServletResponse response, List<FilePropVo> filePropVoList,String downloadTmpPath) {
         long nowTime = new Date().getTime();
         String zipFileName = "attachment_" + nowTime + ".zip";
-        String zipFileTempPah = zipFiles(filePropVoList, zipFileName);
+        String zipFileTempPah = zipFiles(filePropVoList, zipFileName,downloadTmpPath);
         OutputStream out = null;
         BufferedInputStream br = null;
 
@@ -81,12 +81,13 @@ public class FileDownloadUtils {
             int len = 0;
             response.reset(); // 非常重要
             // 纯下载方式
-            response.setContentType("application/x-msdownload");
+            response.setContentType("application/octet-stream;charset=UTF-8");
             response.setHeader("Content-Disposition", "attachment; filename=" + fileName);
             out = response.getOutputStream();
-            while ((len = br.read(buf)) > 0)
+            while ((len = br.read(buf)) > 0){
                 out.write(buf, 0, len);
-            out.flush();
+                out.flush();
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -110,15 +111,12 @@ public class FileDownloadUtils {
      * @param zipFileName
      * @return {{@link String}}
      */
-    private static String zipFiles(List<FilePropVo> filePropVoList, String zipFileName) {
+    private static String zipFiles(List<FilePropVo> filePropVoList, String zipFileName,String downloadTmpPath) {
         FileInputStream fis = null;
         BufferedInputStream bis = null;
         FileOutputStream fos = null;
         ZipOutputStream zos = null;
 
-        //临时文件存储目录
-        String downloadTmpPath = System.getProperty("user.dir") + java.io.File.separator + "tmp"
-                + java.io.File.separator;
         File download = new File(downloadTmpPath);
         if (!download.exists()) {
             download.mkdirs();
