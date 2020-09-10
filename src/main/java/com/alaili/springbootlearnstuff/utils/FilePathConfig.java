@@ -13,6 +13,21 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "downloadfilepath")
 public class FilePathConfig {
-    private String sourcePath;
-    private String destinationPath;
+    private String profile;
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+
+    public String getSourceFilePath(){
+        return getProfile() + "/source";
+    }
+
+    public String getDownloadFilePath(){
+        return getProfile() + "/download";
+    }
 }

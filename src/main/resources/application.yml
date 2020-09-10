@@ -1,5 +1,21 @@
+server:
+     port: 8082
+     servlet:
+          context-path: /sbl
 
-# 下载文件路径配置
- downloadfilepath:
-     sourcePath: /sourcePath/
-     destinationPath: /destPath/
+spring:
+     profiles:
+          active: dev
+     application:
+          name: sbl
+--- #开发环境
+spring:
+     profiles: dev
+downloadfilepath:
+     profile: /develop
+
+--- #生产环境
+spring:
+     profiles: pro
+downloadfilepath:
+     profile: /product

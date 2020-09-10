@@ -6,12 +6,14 @@ import com.alaili.springbootlearnstuff.utils.FilePathConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,16 +52,18 @@ public class DownloadFileController {
      * @return {}
      */
     @GetMapping("/downloadZipFile")
-    public void downloadZipFile(HttpServletResponse response) {
-        String baseDir = System.getProperty("user.dir") +File.separator+ "tmp";
+    public void downloadZipFile(HttpServletResponse response) throws FileNotFoundException {
+        String classpathUri = ResourceUtils.getURL("classpath").getPath();
+        String sourceFilePath = System.getProperty("user.dir") + "/tmp" + filePathConfig.getSourceFilePath() + File.separator;
+        String downloadFilePath = System.getProperty("user.dir") + "/tmp" + filePathConfig.getDownloadFilePath() + File.separator;
         List<FilePropVo> filePropVoList = new ArrayList<>();
         for (int i = 1; i < 4; i++) {
             FilePropVo vo = new FilePropVo();
-            vo.setFilePath(baseDir + filePathConfig.getSourcePath() + "下载文件" + i + ".md");
-            vo.setFileName("下载文件"+i+".md");
+            vo.setFilePath(sourceFilePath + "下载文件" + i + ".md");
+            vo.setFileName("下载文件" + i + ".md");
             filePropVoList.add(vo);
         }
-        String zipFileTmpPath = FileDownloadUtils.downloadZipFiles(response, filePropVoList, baseDir + filePathConfig.getDestinationPath());
+        String zipFileTmpPath = FileDownloadUtils.downloadZipFiles(response, filePropVoList, downloadFilePath);
 
         File file = new File(zipFileTmpPath);
         file.delete();
