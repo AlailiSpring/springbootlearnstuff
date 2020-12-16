@@ -1,4 +1,4 @@
-package com.alaili.springbootlearnstuff.Vo;
+package com.alaili.springbootlearnstuff.vo;
 
 import lombok.Data;
 

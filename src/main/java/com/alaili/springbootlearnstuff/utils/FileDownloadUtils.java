@@ -1,6 +1,6 @@
 package com.alaili.springbootlearnstuff.utils;
 
-import com.alaili.springbootlearnstuff.Vo.FilePropVo;
+import com.alaili.springbootlearnstuff.vo.FilePropVo;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

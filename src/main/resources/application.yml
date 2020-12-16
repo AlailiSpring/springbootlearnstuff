@@ -2,29 +2,16 @@ server:
      port: 8082
      servlet:
           context-path: /sbl
-
 spring:
-     datasource:
-          driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/blackHole
-          username: root
-          password: lbd123
-     profiles:
-          active: dev
-     application:
-          name: sbl
+  profiles:
+    active: dev
+  jmx:
+    default-domain: sbl
+  application:
+    name: sbl
 mybatis-plus:
      configuration:
           #打印sql语句
           log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
---- #开发环境
-spring:
-     profiles: dev
-downloadfilepath:
-     profile: /develop
-
---- #生产环境
-spring:
-     profiles: pro
-downloadfilepath:
-     profile: /product
+mybatis:
+  mapper-locations: classpaths:mapper/**/*Mapper.xml

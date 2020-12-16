@@ -71,6 +71,15 @@
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
+        <!--add database configure password protection-->
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>2.1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jasypt-spring-boot-starter-3.0.3.jar</systemPath>
+        </dependency>
+
     </dependencies>
 
     <build>

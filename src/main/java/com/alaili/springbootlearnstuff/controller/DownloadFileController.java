@@ -1,6 +1,6 @@
 package com.alaili.springbootlearnstuff.controller;
 
-import com.alaili.springbootlearnstuff.Vo.FilePropVo;
+import com.alaili.springbootlearnstuff.vo.FilePropVo;
 import com.alaili.springbootlearnstuff.utils.FileDownloadUtils;
 import com.alaili.springbootlearnstuff.utils.FilePathConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,6 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
