@@ -16,7 +16,7 @@ class ProductServiceTest {
 
     @Test
     void selectAllData() {
-        DataVO dataVo = service.selectAllData();
+        DataVO dataVo = service.selectAllData(1,10);
         int i=0;
     }
 }

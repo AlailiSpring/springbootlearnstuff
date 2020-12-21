@@ -8,6 +8,8 @@ import com.alaili.springbootlearnstuff.service.ProductService;
 import com.alaili.springbootlearnstuff.vo.DataVO;
 import com.alaili.springbootlearnstuff.vo.ProductVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,14 +32,18 @@ public class ProductServiceImpl implements ProductService {
     private ProductCategoryMapper productCategoryMapper;
 
     @Override
-    public DataVO<ProductVO> selectAllData() {
+    public DataVO<ProductVO> selectAllData(Integer page,Integer limit) {
         DataVO dataVO = new DataVO();
         int count = productMapper.selectCount(null);
         dataVO.setCode("0");
-        dataVO.setCount(count);
+        //dataVO.setCount(count);
         dataVO.setMsg("");
 
-        List<Product> productList = productMapper.selectList(null);
+        IPage<Product> productIPage = new Page<>(page, limit);
+        IPage<Product> result = productMapper.selectPage(productIPage, null);
+        dataVO.setCount(result.getTotal());
+
+        List<Product> productList = result.getRecords();
         List<ProductVO> dataList = new ArrayList<>();
         for (Product product : productList) {
             ProductVO productVO = new ProductVO();

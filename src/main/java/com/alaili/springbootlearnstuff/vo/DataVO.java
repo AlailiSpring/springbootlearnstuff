@@ -15,6 +15,6 @@ public class DataVO<T> implements Serializable {
     private static final long serialVersionUID = 948108404840812341L;
     private String code;
     private String msg;
-    private Integer count;
+    private Long count;
     private List<T> data;
 }

@@ -18,7 +18,7 @@ public class ProductController {
     ProductService productService;
 
     @RequestMapping("/list")
-    public DataVO list() {
-        return productService.selectAllData();
+    public DataVO list(Integer page,Integer limit) {
+        return productService.selectAllData(page,limit);
     }
 }
