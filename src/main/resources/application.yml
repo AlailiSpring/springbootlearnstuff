@@ -9,6 +9,9 @@ spring:
     default-domain: sbl
   application:
     name: sbl
+  thymeleaf:
+    prefix: classpath:/template/
+    suffix: .html
 mybatis-plus:
      configuration:
           #打印sql语句
